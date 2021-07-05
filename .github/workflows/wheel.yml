@@ -15,11 +15,6 @@ jobs:
           - 'quay.io/pypa/manylinux2014_aarch64'
           - 'quay.io/pypa/manylinux2014_i686'
           - 'quay.io/pypa/manylinux2014_x86_64'
-        py:
-          - 'cp36-cp36m'
-          - 'cp37-cp37m'
-          - 'cp38-cp38'
-          - 'cp39-cp39'
     runs-on: 'ubuntu-20.04'
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +25,7 @@ jobs:
 
       - name: Build Wheel
         run: |
-          docker run -e PYPATH=/opt/python/${{ matrix.py }} -e ZSTD_WARNINGS_AS_ERRORS=1 --rm -v `pwd`:/project ${{ matrix.image }} /project/ci/build-manylinux-wheel.sh
+          docker run -e PYPATH=/opt/python/cp39-cp39 -e ZSTD_WARNINGS_AS_ERRORS=1 --rm -v `pwd`:/project ${{ matrix.image }} /project/ci/build-manylinux-wheel.sh
 
       - name: Upload Wheel
         uses: actions/upload-artifact@v2
@@ -102,11 +97,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        py:
-          - '3.6'
-          - '3.7'
-          - '3.8'
-          - '3.9'
         arch:
           - 'x86'
           - 'x64'
@@ -117,7 +107,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.py }}
+          python-version: 3.9
           architecture: ${{ matrix.arch }}
 
       - uses: actions/checkout@v2
@@ -128,7 +118,7 @@ jobs:
 
       - name: Build Wheel
         run: |
-          python setup.py bdist_wheel
+          python setup.py bdist_wheel --py-limited-api=cp36
 
       - name: Upload Wheel
         uses: actions/upload-artifact@v2

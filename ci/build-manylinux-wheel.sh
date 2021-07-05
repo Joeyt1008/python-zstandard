@@ -63,7 +63,7 @@ ${PYPATH}/bin/pip install -r /tmp/requirements.txt
 
 mkdir -p /tmp/wheels
 
-${PYPATH}/bin/pip wheel -v /project -w /tmp/wheels --no-deps
+${PYPATH}/bin/pip wheel -v /project -w /tmp/wheels --no-deps --no-use-pep517 --build-option "--py-limited-api=cp36"
 wheel=$(ls /tmp/wheels/*.whl)
 
 # Apply fixups.
