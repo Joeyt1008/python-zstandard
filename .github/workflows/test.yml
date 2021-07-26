@@ -100,6 +100,11 @@ jobs:
               pwd && \
               ls && \
               cargo --version && \
+              
+              export ZSTD_SLOW_TESTS=1 && \
+              export ZSTD_WARNINGS_AS_ERRORS=1 && \
+              export HYPOTHESIS_PROFILE=ci && \
+              export PYTHONDEVMODE=1 && \
               pip install --require-hashes -r ci/requirements.txt && \
               python setup.py --rust-backend develop && \
               python setup.py develop && \
