@@ -104,8 +104,8 @@ jobs:
               python setup.py --rust-backend develop && \
               python setup.py develop && \
               pytest --numprocesses=auto -v tests/ && \
-              export PYTHON_ZSTANDARD_IMPORT_POLICY=: 'cffi' && \
+              export PYTHON_ZSTANDARD_IMPORT_POLICY=cffi && \
               pytest --numprocesses=auto -v tests/ && \
-              export PYTHON_ZSTANDARD_IMPORT_POLICY=: 'rust' && \
+              export PYTHON_ZSTANDARD_IMPORT_POLICY=rust && \
               pytest --numprocesses=auto -v tests/ && \
               deactivate'
